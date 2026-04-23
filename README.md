@@ -1,3 +1,5 @@
+![Header Image](https://github.com/cosmorunner/process-market/blob/main/public/img/hero1.png?raw=true)
+
 # Marktplatz für statusorientierte Prozesse
 
 Laravel-basierte Webanwendung für die Entwicklung und Bereitstellung 
@@ -10,6 +12,8 @@ von statusorientierten Prozessmodellen gemäß dem SONAL®-Prozessmodell.
 - Kollaborative Prozessentwicklung in Organisationen.
 - Veröffentlichung der Prozessmodelle auf dem integrierten Marktplatz.
 - Durchlaufsimulation der Prozessmodelle (nur mit verknüpfter "Allisa Plattform" Engine verfügbar)
+
+![Designer Image](https://github.com/cosmorunner/process-market/blob/main/public/img/docs/de/rules-example-2.png?raw=true)
 
 ### Demo Installation mit Docker Compose
 Folgende Schritte starten einen Docker Compose Stack mit fünf Containern:
