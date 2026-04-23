@@ -48,8 +48,9 @@ Struktur:
 - Bereich: Konfiguration
 
 ### Tests
-Die PHPUnit-Tests liegen im Verzeichnis `tests`. Für Tests muss die Test-Umgebung genutzt werden (`.env.testing`),
-welche bei Nutzung von `docker-compose-example-development.yml` bereits automatisch in den "market_app" Container eingebunden wird.
+Die PHPUnit-Tests liegen im Verzeichnis `tests`. Für Tests muss die Test-Umgebung (`.env.testing`) genutzt werden.
+Diese wird bei Nutzung der oben beschriebenen Demo-Installation bereits 
+automatisch in den "market_app" Container eingebunden.
 
 1. Mit dem "market_app" Container verbinden: `docker exec -it market_app bash`
 2. Alle Tests ausführen: `php artisan test`
