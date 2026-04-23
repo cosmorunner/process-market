@@ -1,0 +1,17 @@
+{# Dokumentation: https://twig.symfony.com/doc/3.x/templates.html #}
+
+{#
+Führe eigene Logik mit dem Daten-Mapping aus und setze die Variablen
+auf die Tags in "<action><output name="field_1">"..."</output></action>"
+#}
+
+{% set foo = 'foo' %}
+{% set bar = 'bar' %}
+
+{# Dies ist der Ausgabe-Bereich. Die Tag-Struktur muss beibehalten werden. #}
+<outputs>
+    <action>
+        <output name="field_1">{{ foo }}</output>
+        <output name="field_2">{{ bar }}</output>
+    </action>
+</outputs>

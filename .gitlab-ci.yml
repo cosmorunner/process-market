@@ -1,0 +1,252 @@
+stages:
+  - test
+  - deploy
+  - build_company
+  - push_tag_company
+  - test_company
+  - check_tests_company
+  - push_latest_company
+  - deploy_production_company
+
+variables:
+  CI_REGISTRY: gitlab.example.com:5050
+  CI_REGISTRY_IMAGE: $CI_REGISTRY/development/process-market
+  VERSION: $(strings version | head -n 1)
+
+default:
+  image: docker:cli  # Base Docker image for Docker commands
+
+#before_script:
+  #- echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  #- export VERSION=$(strings version | head -n 1)
+  #- echo "VERSION is set to $VERSION"
+
+deploy_staging:
+  stage: test
+  script:
+    # Ziel dieser Stage ist es, die Staging-Installation der Prozessfabrik zu aktualisieren.
+    # Die Staging-Installation läuft parallel zur Produktiv-Installation und erhält alle Updates aus dem "staging"-Branch,
+    # sodass Code-Änderungen, Bug-Fixes & Features getestet werden können, bevor die Änderungen in den "master"-Branch kommen.
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    # In das Staging-Verzeichnis wechseln
+    - cd ${DEPLOY_PATH_STAGING}
+
+    # Erforderliche Variablen setzen. Manche Variablen, wie z.B. "DEPLOY_TOKEN_USERNAME" wurden in GitLab definiert.
+    - REPOSITORY="https://${DEPLOY_TOKEN_USERNAME}:${DEPLOY_TOKEN_VALUE}@github.com/username/process-market.git"
+
+    # Basis Installation clonen
+    - rm -rf temp
+    - mkdir temp
+    - git clone --branch staging --depth 1 ${REPOSITORY} temp
+    - rm -rf temp/.git && cp -r temp/. . && rm -rf temp
+
+    # Basis Installation mit composer install beginnen
+    - composer install --prefer-dist --no-scripts -q -o
+
+    # Dump Autoload
+    - echo "Composer dump-autoload"
+    - composer dump-autoload
+
+    # Berechtigung setzen
+    - find ./* -type f -exec chmod 664 {} \;
+    - find ./* -type d -exec chmod 775 {} \;
+    - chgrp -R www-data ./*
+
+    # Maintenance Mode aktivieren
+    - echo "Wartungsmodus mit Key 1337 aktivieren"
+    - php artisan down --secret="1337"
+
+    # Simulationen stoppen
+    - php artisan app:stop_simulations
+
+    # Migrationen durchführen
+    # Alle .env-Dateien außer ".env.example", ".env.testing", ".env.staging" und ".env.example-production"
+    - echo "Migrating ${ENV_NAME}"
+    - php artisan migrate --force
+
+    # Cache entfernen
+    - rm bootstrap/cache/*
+
+    # Redis cache entfernen
+    - php artisan redis:flushdb
+
+    # Docs installieren
+    - php artisan larecipe:install
+
+    # Cache initialisieren
+    - php artisan telescope:publish
+    - php artisan route:cache
+    - php artisan view:cache
+    - php artisan config:cache
+
+    # Maintenance Mode deaktivieren
+    - php artisan up
+
+  when: manual
+  only:
+    - staging
+
+deploy_production:
+  stage: deploy
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    # In das Production-Verzeichnis wechseln
+    - cd ${DEPLOY_PATH_PRODUCTION}
+
+    # Erforderliche Variablen setzen. Manche Variablen, wie z.B. "DEPLOY_TOKEN_USERNAME" wurden in GitLab definiert.
+    - REPOSITORY="https://${DEPLOY_TOKEN_USERNAME}:${DEPLOY_TOKEN_VALUE}@github.com/username/process-market.git"
+
+    # Basis Installation clonen
+    - rm -rf temp
+    - mkdir temp
+    - git clone --branch master --depth 1 ${REPOSITORY} temp
+    - rm -rf temp/.git && cp -r temp/. . && rm -rf temp
+
+    # Basis Installation mit composer install beginnen
+    - composer install --prefer-dist --no-scripts -q -o --optimize-autoloader
+
+    # Dump Autoload
+    - echo "Composer dump-autoload"
+    - composer dump-autoload
+
+    # Berechtigung setzen
+    - find ./* -type f -exec chmod 664 {} \;
+    - find ./* -type d -exec chmod 775 {} \;
+    - chgrp -R www-data ./*
+
+    # Maintenance Mode aktivieren
+    - echo "Wartungsmodus mit Key 1337 aktivieren"
+    - php artisan down --secret="1337"
+
+    # Simulationen stoppen
+    - php artisan app:stop_simulations
+
+    # Konfiguration Cache leeren, damit ggfls. die Migrationen die aktualisiere Konfiguration nutzen kann
+    - php artisan config:clear
+
+    # Migrationen durchführen
+    - cd ${DEPLOY_PATH_PRODUCTION}
+    - php artisan migrate --force
+
+    # Cache entfernen.
+    - rm bootstrap/cache/*
+
+    # Redis cache entfernen
+    - php artisan redis:flushdb
+
+    # Docs installieren
+    - php artisan larecipe:install
+
+    # Cache initialisieren, Konfiguration NICHT cachen.
+    - php artisan telescope:publish
+    - php artisan route:cache
+    - php artisan view:cache
+    - php artisan config:cache
+
+    # Maintenance Mode deaktivieren
+    - php artisan up
+
+  when: manual
+  only:
+    - master
+
+build_company:
+  stage: build_company
+  script:
+    - docker build --pull --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$VERSION --file docker/app/Dockerfile .
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging" || $CI_COMMIT_BRANCH == "develop"
+
+push_tag_company:
+  stage: push_tag_company
+  script:
+    - docker tag $CI_REGISTRY_IMAGE:$VERSION $CI_REGISTRY_IMAGE:beta-$VERSION
+    - docker push $CI_REGISTRY_IMAGE:beta-$VERSION
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging" || $CI_COMMIT_BRANCH == "develop"
+
+test_company:
+  stage: test_company
+  variables:
+    UNIQUE_CONTAINER_NAME: "app_test_${CI_JOB_ID}"
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - export VERSION=$(strings version | head -n 1)
+    - echo "VERSION is $VERSION"
+    - docker pull $CI_REGISTRY_IMAGE:beta-$VERSION  # Pull the Docker image from the registry
+    - docker rm -f $UNIQUE_CONTAINER_NAME || true
+    - docker run -d --name $UNIQUE_CONTAINER_NAME $CI_REGISTRY_IMAGE:beta-$VERSION
+    - docker cp .env.testing $UNIQUE_CONTAINER_NAME:/var/www/html/.env
+    - docker exec $UNIQUE_CONTAINER_NAME ls -la /var/www/html
+    - docker exec $UNIQUE_CONTAINER_NAME composer install --prefer-dist --no-interaction --no-scripts --no-progress
+    - docker exec $UNIQUE_CONTAINER_NAME php artisan config:clear
+    - docker exec $UNIQUE_CONTAINER_NAME php artisan config:cache --env=testing
+    - docker exec $UNIQUE_CONTAINER_NAME php artisan migrate --env=testing
+  script:
+    - docker exec $UNIQUE_CONTAINER_NAME php artisan passport:install --force --no-interaction
+    - docker exec $UNIQUE_CONTAINER_NAME php artisan test --stop-on-failure --log-junit=/var/www/html/report.xml tests/Unit/Models/UserTest.php || true
+
+    - docker exec $UNIQUE_CONTAINER_NAME ls -la /var/www/html/
+
+    - docker cp $UNIQUE_CONTAINER_NAME:/var/www/html/report.xml ./report.xml
+  after_script:
+    - docker stop $UNIQUE_CONTAINER_NAME
+    - docker rm $UNIQUE_CONTAINER_NAME
+
+  artifacts:
+    reports:
+      junit: report.xml
+    paths:
+      - report.xml
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging"
+
+check_tests_company:
+  stage: check_tests_company
+  script:
+    - |
+      if grep -q "<failure" report.xml; then
+        echo "Tests failed"
+        exit 1
+      else
+        echo "Tests passed"
+      fi
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging"
+  dependencies:
+    - test_company
+
+push_latest_company:
+  stage: push_latest_company
+  script:
+    - docker tag $CI_REGISTRY_IMAGE:$VERSION $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging"
+
+deploy_production_company:
+  stage: deploy_production_company
+  script:
+    - echo "Deploying to production environment"
+    # deployment commands here
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+  dependencies:
+    - check_tests_company
+    - push_latest_company

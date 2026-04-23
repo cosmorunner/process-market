@@ -1,0 +1,22 @@
+{{! Dies ist eine Mustache.js Vorlage. Dokumentation: https://github.com/janl/mustache.js }}
+
+{{comment}}
+
+<p class="mb-0">Artikel:</p>
+
+<ul>
+    {{#items}}
+    <li>
+        <span class="text-primary">{{article}}</span>
+        <span> - </span>
+        <span class="text-danger">{{price}}</span>
+    </li>
+    {{/items}}
+</ul>
+
+{{#mustBeApproved}}
+    <p class="mb-0">Die Bestellung muss durch folgende Personen freigegeben werden:</p>
+    {{#approvers}}
+        <span class="mr-1 font-weight-bold">{{.}}</span>
+    {{/approvers}}
+{{/mustBeApproved}}

@@ -1,0 +1,38 @@
+<div class="container py-5 bg-light">
+    <div class="row mb-5 justify-content-center">
+        <div class="col-8 align-items-center d-flex">
+            <img class="border-0" alt="" style="max-height:70px;" src="{{ app_image_url }}">
+            <h2 class="ml-2 d-inline-block mb-0">{{ app_name }}</h2>
+        </div>
+    </div>
+    <div class="row mb-5 justify-content-center">
+        <div class="col-8 bg-white p-3 border align-items-center">
+            <div class="row">
+                <div class="col">
+                    <b>Hallo!</b>
+                    <p class="pre-line">{{ message }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="{{ url }}" class="btn btn-primary" target="_blank" rel="noopener">{{ button_label }}</a>
+                </div>
+                <hr>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <small class="text-muted">
+                        <span>Wenn Sie Probleme haben auf die Schaltfläche zu klicken, kopieren Sie die folgende URL und fügen Sie sie in Ihren Webbrowser ein:</span>
+                        <a href="{{ url }}">{{ url }}</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <small class="text-muted">Powered by <a class="text-dark" href="https://allisa.software/">Allisa Software GmbH</a></small>
+        </div>
+    </div>
+</div>

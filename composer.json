@@ -1,0 +1,101 @@
+{
+    "name": "hagemann/sope-market",
+    "type": "project",
+    "description": "SOPE Marketplace.",
+    "keywords": [
+        "sope",
+        "marketplace",
+        "processes"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-sqlite3": "*",
+        "ext-xml": "*",
+        "binarytorch/larecipe": "^2.5",
+        "doctrine/dbal": "^3.0",
+        "fakerphp/faker": "^1.13",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "hagemann/default-docs-theme": "*",
+        "intervention/image": "^2.7",
+        "jdenticon/jdenticon": "^1.0",
+        "laravel/framework": "^10.0",
+        "laravel/horizon": "^5.7",
+        "laravel/passport": "^12.0",
+        "laravel/telescope": "^5.0",
+        "laravel/tinker": "^2.0",
+        "laravel/ui": "^4.0",
+        "league/flysystem": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "predis/predis": "^1.1.10",
+        "spatie/laravel-sluggable": "^3.4",
+        "spatie/url": "^2.0",
+        "stevebauman/purify": "^6.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
+        "brianium/paratest": "^7.0",
+        "spatie/laravel-ignition": "^2.0",
+        "filp/whoops": "^2.7",
+        "laravel/envoy": "^2.5",
+        "mockery/mockery": "^1.4",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "classmap": [
+            "database/builder"
+        ],
+        "files": [
+            "app/helpers.php"
+        ],
+        "exclude-from-classmap": [
+            "/vendor/erusev/parsedown-extra/test"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./resources/docs-theme/DefaultDocsTheme"
+        }
+    ]
+}

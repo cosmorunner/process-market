@@ -1,0 +1,102 @@
+# This Dockerfile builds the PHP8.1 image including all necessary extensions and additional packages (e.g. Weasyprint) for the Allisa Platform.
+
+# Copied from cyberduck/php-fpm-laravel
+#https://github.com/Cyber-Duck/php-fpm-laravel/blob/8.1/Dockerfile
+FROM php:8.1-fpm
+
+ENV COMPOSER_MEMORY_LIMIT='-1'
+
+RUN apt-get update && \
+    apt-get install -y --force-yes --no-install-recommends \
+        libmemcached-dev \
+        libzip-dev \
+        libz-dev \
+        libpq-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libfreetype6-dev \
+        libssl-dev \
+        openssh-server \
+        libmagickwand-dev \
+        git \
+        cron \
+        nano \
+        libxml2-dev \
+        libreadline-dev \
+        libgmp-dev \
+        mariadb-client \
+        unzip \
+        libldb-dev \
+        libldap2-dev \
+        libxslt1-dev \
+        iputils-ping
+
+# Install PECL extensions
+RUN pecl install redis \
+    imagick \
+    dbase \
+    xdebug \
+    memcached
+
+# Install PHP extensions
+RUN docker-php-ext-install soap  \
+    exif \
+    pcntl \
+    zip \
+    pdo_mysql \
+    pdo_pgsql \
+    bcmath \
+    intl \
+    gmp \
+    ldap \
+    sockets \
+    xsl
+
+# Configure and install gd extension to use "Image" php class methods.
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
+
+# Enable PECL extensions
+RUN docker-php-ext-enable redis \
+    imagick \
+    dbase \
+    memcached
+
+# Install composer and add its bin to the PATH.
+RUN curl -s http://getcomposer.org/installer | php && \
+    echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
+    mv composer.phar /usr/local/bin/composer
+# Source the bash
+RUN . ~/.bashrc
+
+# Weasyprint library for PDF generation
+RUN apt-get -y install python3-pip python3-venv python3-cffi python3-brotli libpango-1.0-0 libpangoft2-1.0-0
+SHELL ["/bin/bash", "-c"]
+RUN python3 -m venv venv
+RUN source venv/bin/activate
+RUN pip3 install weasyprint==60.1 --break-system-packages
+SHELL ["/bin/sh", "-c"]
+
+# Aliases
+# docker-compose exec php-fpm dep --> locally installed Deployer binaries
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/vendor/bin/dep "$@"' > /usr/bin/dep
+RUN chmod +x /usr/bin/dep
+# docker-compose exec php-fpm art --> php artisan
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/artisan "$@"' > /usr/bin/art
+RUN chmod +x /usr/bin/art
+# docker-compose exec php-fpm migrate --> php artisan migrate
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/artisan migrate "$@"' > /usr/bin/migrate
+RUN chmod +x /usr/bin/migrate
+# docker-compose exec php-fpm fresh --> php artisan migrate:fresh --seed
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/artisan migrate:fresh --seed' > /usr/bin/fresh
+RUN chmod +x /usr/bin/fresh
+# docker-compose exec php-fpm t --> run the tests for the project and generate testdox
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/artisan config:clear\n/var/www/vendor/bin/phpunit -d memory_limit=2G --stop-on-error --stop-on-failure --testdox-text=tests/report.txt "$@"' > /usr/bin/t
+RUN chmod +x /usr/bin/t
+# docker-compose exec php-fpm d --> run the Laravel Dusk browser tests for the project
+RUN echo '#!/bin/bash\n/usr/local/bin/php /var/www/artisan config:clear\n/bin/bash\n/usr/local/bin/php /var/www/artisan dusk -d memory_limit=2G --stop-on-error --stop-on-failure --testdox-text=tests/report-dusk.txt "$@"' > /usr/bin/d
+RUN chmod +x /usr/bin/d
+
+RUN rm -r /var/lib/apt/lists/*
+
+RUN usermod -u 1000 www-data

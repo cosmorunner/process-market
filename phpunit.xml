@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="vendor/autoload.php" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+  <testsuites>
+    <testsuite name="Feature">
+      <directory>./tests/Feature</directory>
+    </testsuite>
+    <testsuite name="Unit">
+      <directory>./tests/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <env name="APP_ENV" value="testing"/>
+      <!-- Important to not accidentally overwrite database.-->
+      <env name="DB_CONNECTION" value="testing"/>
+    <!-- Important to not accidentally overwrite data. Root: storage/app/documents/testing -->
+    <env name="FILESYSTEM_DISK" value="testing"/>
+    <!-- Other environment variables are placed in ".env.testing". Make sure config cache is cleared. -->
+  </php>
+  <logging>
+    <junit outputFile="./report.xml"/>
+  </logging>
+  <source>
+    <include>
+      <directory>./app</directory>
+    </include>
+  </source>
+</phpunit>

@@ -1,0 +1,316 @@
+### 1.19.0 - Reguläres Update
+
+06.05.2025
+
+#### Funktionen
+- DEV-871 - Beim Aktionsprozessor "E-Rechnung erstellen" kann nun eine Rechnung mit dem Profil "Handelsgesetzbuch (HGB) erstellt werden.
+- DEV-767 - Bei den Formularfeldern "Radio" und "Auswahl" können die Optionen aus Variablen-Werten ermittelt werden.
+- DEV-822 - Beim Fertigstellen einer Prozess-Version wird der fertigstellende Benutzer gespeichert und in der Versionsübersicht angezeigt.
+
+#### Fehlerbehebungen
+- DEV-866 - Behebt den Fehler, dass bei der Prozess-Liste "Verknüpfte Prozesse" manche Datenfelder nicht ausgewählt werden konnten.
+
+### 1.18.0 - Reguläres Update
+
+20.03.2025
+
+#### Funktionen
+- DEV-642 - Verlinkungen zu Dokumentationsartikeln sind sichtbarer platziert.
+- DEV-781 - Mit dem neuen Aktions-Prozessor "E-Rechnung erstellen" können E-Rechnungen im Profil "ZUGFeRD Minimum" und "X-Rechnung 3.0" erzeugt werden.
+
+#### Fehlerbehebungen
+- DEV-805 - Behebt den Fehler, dass das Bulk-Anlegen von Vorladedaten nicht wie dokumentiert funktioniert hat.
+- DEV-806 - Behebt den Fehler, dass beim Austreten von einer Organisation der Kontext nicht korrekt gesetzt wurde.
+
+### 1.17.4 - Reguläres Update
+
+28.01.2025
+
+#### Funktionen
+- DEV-792 - Prozesslisten können nun analog zu den Systemlisten zusätzlich nach Zugriffen des angemeldeten Benutzer gefiltert werden.
+
+#### Fehlerbehebungen
+- DEV-791 - Behebt den Fehler, dass eine Simulation mit einer Initialaktion nicht mit einem anderen Benutzer als dem "Demo-Benutzer" gestartet werden konnte.
+
+### 1.17.3 - Reguläres Update
+
+20.01.2025
+
+#### Funktionen
+- DEV-729 - Bei der Aktionsausführung einer Simulation im Bereich "Regeln & Daten" kann bei Aktionsdaten mit einer "Model-Pipe-Notation"-Validierung
+Objekte aus der Demoumgebung (Benutzer, Gruppen, Prozesse) als Werte gewählt werden.
+- DEV-752 - Beim Prozessor "Eigene Logik ausführen" kann eine eigene Validierungsnachricht angegeben werden. Diese wird ausgegeben, wenn
+ein Aktionsdatenfeld im Vorlagen-Ausgabebereich mit einem ungültigen Wert befüllt wird.
+
+#### Änderungen
+- DEV-774 - Die Anzahl der auswählbaren Elemente für E-Mail Empfänger beim Prozessor "E-Mail versenden" wurde von zehn auf 15 Elemente erhöht.
+- DEV-775 - Bei der Vorlagen-Auswahl beim "E"-Mail versenden"-Prozessor kann ein Aktions-Datenfeld gewählt werden.
+- DEV-771 - Bei der Datumsvalidierung eines Aktionsdatenfeldes wird der gewählte Tag für die Optionen "Frühestes Datum" und "Spätestes Datum" mit eingeschlossen.
+
+#### Fehlerbehebungen
+- DEV-731 - Behebt den Fehler, dass die Aktionsdatenfelder beim Prozessor "Konnektoranfrage ausführen" nicht sortiert angezeigt wurden.
+- DEV-748 - Behebt den Fehler, die Aktionen bei Aktions- und Statusregeln unterschiedlich sortiert angezeigt wurden.
+- DEV-746 - Behebt den Fehler, E-Mail Vorlagen bei bestimmten Browsern nicht sortiert angezeigt wurden.
+- DEV-756 - Behebt den Fehler, dass der Suchparameter bei der Suche nach Prozessen nicht gelöscht werden konnte.
+- DEV-760 - Behebt den Fehler, dass bei der Auswahl einer Aktion in der grafischen Übersicht identische Aktionen nicht ebenfalls markiert wurden.
+
+### 1.17.2 - Reguläres Update
+
+10.12.2024
+
+#### Funktionen
+- DEV-695 - JSON Array/Objekt-Werte können bei Prozessen in der Demoumgebung genutzt werden.
+- DEV-720 - Prozess-Rollen können kopiert werden.
+- DEV-723 - Aktions- und Statusregeln können während der Prozess-Simulation ein- und ausgeklappt werden.
+- DEV-744 - Bei Benutzer-Prozessliste kann auf Daten der Benutzer-Prozess-Identität zugegriffen werden.
+
+#### Änderungen
+- DEV-736 - Die Anzahl der auswählbaren Elemente für E-Mail Empfänger beim Prozessor "E-Mail versenden" wurde von fünf auf zehn Elemente erhöht.
+
+#### Fehlerbehebungen
+- DEV-721 - Behebt den Fehler, dass die Mehrfacherstellung von Aktionsdaten unter bestimmten Umständen zu einem Fehler geführt haben.
+- DEV-724 - Behebt den Fehler, dass der Endzustand in der graphischen Prozessübersicht nicht korrekt angezeigt wurde.
+- DEV-725 - Behebt den Fehler, dass die Checkbox Validierung bei der Simulation unter "Regeln & Daten" nicht korrekt ausgeführt wurde.
+
+### 1.17.1 - Reguläres Update
+
+13.11.2024
+
+#### Funktionen
+- DEV-702 - Aktions-Formular: Beim Feld "Dialog-Liste" können die Optionen "Auto-Mapping bei einzelnen Listenergebnis" und "Auto-Mapping beim Öffnen der Aktion" gewählt werden,
+wodurch es möglich ist, dass der Wert des Feldes automatisch ermittelt werden kann.
+- DEV-704 - Bereich Regeln & Daten: In der Prozess- und Aktionsdaten Übersicht wird der Datenfeld-Typ als Icon angezeigt.
+
+#### Fehlerbehebungen
+- DEV-662 - Behebt den Fehler, dass für Konkatenationen bei Listenspalten die Leerzeichen ignoriert wurden.
+- DEV-692 - Behebt den Fehler, dass deaktivierte Benutzer nicht aus Organisationen entfernt wurden.
+
+### 1.17.0 - Reguläres Update
+
+01.11.2024
+
+#### Funktionen
+- DEV-664 - Listen: Neuer Spaltentyp "Vorlage" mit dem das HTML der Listenspalte individuell gestaltet werden kann.
+- DEV-691 - Aktions-Formular: Das Autocomplete Feld hat eine Option, mit dem der Wert als Semikolon separierter String zurückgegeben wird, anstelle eines JSON-Arrays.
+
+#### Fehlerbehebungen
+- DEV-682 - Behebt den Fehler, dass beim Erstellen eines Prozesses aus einer Vorlage, keine "develop" Version angelegt wurde.
+- DEV-670 - Behebt den Fehler, dass die Prozess-Graph Anzeige bei bestimmten Änderungen am Prozess entfernt wurde.
+
+### 1.16.0 - Reguläres Update
+
+27.10.2024
+
+#### Funktionen
+- DEV-686 - Die Liste für den Prozessverlauf kann durch eine eigene Prozessliste der Vorlage "Ausgeführte Aktionen" ersetzt werden.
+- DEV-685 - Neue Vorlagen Variablen-Typen "Benutzer" und "Gruppe" ermöglichen einen einfachen Zugriff auf Benutzer- und Gruppendaten.
+
+#### Änderungen
+- DEV-683 - Das Aktions-Formularfeld "Dialogliste" kann einen eigenen Wert halten. Der gewählte Wert wird als Button-Label angezeigt.
+
+### 1.15.0 - Reguläres Update
+
+24.10.2024
+
+#### Funktionen
+- DEV-638 - Das neue "Währung"-Formularfeld ermöglicht das Erfassen und Anzeigen von formatierten Währungsangaben in einem Aktionsformular.
+- DEV-645: Mit der neuen Prozesslisten-Vorlage "Benutzer" können Plattform Benutzer in Listen angezeigt und nach Tags gefiltert werden.
+- DEV-651: Mit der neuen Prozesslisten-Vorlage "Gruppen" können Plattform Gruppen in Listen angezeigt und nach Tags gefiltert werden.
+- DEV-652 - Die neue "Währung"-Listenspalte ermöglicht das Anzeigen von formatierten Währungsangaben in Listen.
+- DEV-653: Bei der Prozesslisten-Vorlage "Ausgeführte Aktionen" können jetzt die Aktionsdatenfelder einzeln selektiert werden.
+
+#### Fehlerbehebungen
+- DEV-672: Behebt den Fehler, dass eine Änderung der öffentlichen Rolle in der graphischen Prozessübersicht die Anzeige des Graphen deaktiviert hat.
+- DEV-675: Behebt den Fehler, dass die Aktionsspeicherung bei einem NULL Feldwert verhindert wurde.
+
+### 1.14.0 - Reguläres Update
+
+20.10.2024
+
+#### Funktionen
+- DEV-656: Über das Dropdown-Menü beim Profilnamen oben rechts kann zwischen dem Kontext "Eigenes Profil" und "Organisation" gewechselt werden.
+- DEV-660: Archivierte Prozesse können angezeigt und wiederhergestellt werden.
+
+#### Änderungen
+- DEV-647: Element- und Fontgröße im Prozess-Graph wurden angepasst, sodass mehr Inhalt in den Elementen angezeigt wird.
+
+#### Fehlerbehebungen
+- DEV-663: Behebt den Fehler, dass beim Verschieben eines Status unter bestimmten Umständen nicht alle Elemente des Status mitverschoben wurden.
+- DEV-666: Vorlagen - Behebt den Fehler, dass nach einem Eingabefehler bei der Vorlagenbearbeitung nicht mehr gespeichert werden könnte.
+- DEV-661: Behebt den Fehler, dass der Verbindungsstil einer Prozessgraph-Kante nicht geändert werden konnte.
+
+### 1.13.8 - Hotfix Update
+
+14.10.2024
+
+#### Fehlerbehebungen
+- DEV-658: Prozess-Graph - Behebt den Fehler, dass der Prozess-Graph unter bestimmten Umständen nicht gespeichert wurde.
+
+### 1.13.7 - Reguläres Update
+
+13.10.2024
+
+#### Funktionen
+- DEV-646: Benutzer- & Gruppen-Tags: Benutzern und Gruppen in Demoumgebungen können nun Tags zugewiesen werden.
+
+### 1.13.6 - Hotfix Update
+
+10.10.2024
+
+#### Fehlerbehebungen
+- DEV-657: Prozess-Graph - Behebt den Fehler, dass der Prozess-Graph unter beim Ändern der Automatischen Referenzerzeugung falsch gespeichert wurde.
+
+### 1.13.5 - Hotfix Update
+
+02.10.2024
+
+#### Fehlerbehebungen
+- DEV-648: Prozess-Graph - Behebt den Fehler, dass der Prozess-Graph unter bestimmten Umständen nicht gespeichert wurde.
+- DEV-649: Zustandsaktualisierung - Behebt den Fehler, der Min- und Max-Wert nicht korrekt aktualisiert wurden.
+- DEV-650: Regeln & Daten - Behebt den Fehler, dass unter bestimmten Umständen Statusregeln ungewollte gelöscht wurden.
+
+### 1.13.4 - Reguläres Update
+
+27.09.2024
+
+#### Funktionen
+- DEV-358: Smarte Variablen - Smarte Variablen können nun in Demo-Umgebungen erstellt werden. Aktuell nur auf der Plattform, nicht in der Demo nutzbar.
+- DEV-628: Einzigartige Prozess-Referenznamen - Der Prozess-Referenzname kann jetzt im Syntax-Loader im Prozessor 'Prozess-Metadaten ändern' verwendet werden.
+Zudem können Variablenwerte für die automatische Erzeugung der Referenz genutzt werden.
+
+#### Änderungen
+- DEV-627: Optimierung Prozessgraph - Änderungen am Prozessgraph werden jetzt schneller verarbeitet.
+
+#### Fehlerbehebungen
+- DEV-626: Aktions-Prozessoren - Behebt den Fehler, dass ein Prozessor 'Connector-Anfrage ausführen' nicht aktualisiert werden konnte,
+wenn die maximale Anzahl erreicht ist. Die maximale Anzahl wurde außerdem auf 15 erhöht.
+- DEV-640: Regeln & Daten - Behebt den Fehler, bei dem der Prozess-Graph gelöscht wurde, sobald Rollen, Prozessdaten, Vorladedaten und Aktions-Daten
+gelöscht, hinzugefügt oder durch die schnelle Bearbeitung umbenannt wurden.
+
+### 1.13.3 - Hotfix Update
+
+19.09.2024
+
+##### Funktionen
+- DEV-613: Dokumentation überarbeitet.
+
+### 1.13.2 - Hotfix Update
+
+18.09.2024
+
+##### Fehlerbehebungen
+- DEV-614: Regeln & Daten - Behebt den Fehler, dass Eingabefehler bei der Mehrfachanlage nicht angezeigt wurden.
+
+### 1.13.1 - Hotfix Update
+
+17.09.2024
+
+##### Fehlerbehebungen
+- DEV-612: Regeln & Daten - Behebt den Fehler, dass der Status- und Aktions-Referenzname im Dialogfenster nicht angezeigt wurde.
+- DEV-616: Regeln & Daten - Behebt den Fehler, dass Status-Zustände nicht angelegt werden konnten.
+- DEV-617: Aktions-Formular - Behebt den Fehler, dass für bestehnde Auswahl-Felder keine Konkatenation für das Options-Label gewählt werden konnte.
+- DEV-620: Aktions-Formular - Behebt den Fehler, dass beim Autocomplete Feld die Option "Eigene Werte erlauben" und beim Dialogliste-Feld die Option "context-URL-Parameter übernehmen" nicht gewählt werden konnte.
+- DEV-621: Regeln & Daten - Behebt den Fehler, dass der Prozess-Graph nicht mehr angezeigt wurde, nachdem man ein Prozess-Datenfeld oder Aktions-Vorladedatenfeld angelegt hat.
+
+### 1.13.0 - Reguläres Update
+
+15.09.2024
+
+##### Funktionen
+- DEV-36: Globales JavaScript - JavaScript kann auf Aktions- und Prozess-Instanz Ebene definiert, und im Aktionsformular genutzt werden.
+- DEV-397: Aktions-Formular - Das Aktions-Formular unterstützt globales JavaScript. JavaScript Methoden, die zuvor im Computed-Input Bereich einzelner Felder
+- DEV-541: Regeln & Daten - Das Design des Prozess-Graphen wurde aktualisiert.
+- DEV-553: Regeln & Daten - Aktionen, Aktions-Vorladedaten, Aktionsdaten, Status, Status-Zuständen und Prozess-Daten können über eine Mehrfachanlage im Panel schneller angelegt werden.
+- DEV-555: Regeln & Daten - Im jeweiligen Panel-Bereich können Aktionen, Aktions-Vorladedaten, Aktionsdaten, Status und Prozess-Daten über ein Suchfeld gefiltert werden.
+- DEV-561: Status erstellen - Beim Erstellen eines Status wird der Initialzustand automatisch mit erstellt.
+- DEV-564: Regeln & Daten - Im Panel kann der Name von Aktionen, Aktions-Vorladedaten, Aktionsdaten, Status, Status-Zuständen und Prozess-Daten bearbeitet werden.
+- DEV-566: Graph-Design - Der Verbindungsstil von Kanten im Prozess-Graph kann zwischen einer geraden Linie und einer eckigen Linie gewechselt werden.
+- DEV-567: Organisation - Die Rolle "Eigentümer" wurde zur Organisation hinzugefügt. Das erste Organisations-Mitglied wird automatisch zur "Eigentümer"-Rolle befördert.
+- DEV-574: Regeln & Daten - Rollen-Detailansicht - Analog zu den Detailansichten der anderen Bereiche im Panel wird nun auch bei den Rollen eine Detailansicht angezeigt,
+- DEV-575: Regeln & Daten - Rollen-Dialogfenster - Die Kategorien der Rechte können einzeln ein- und ausgeklappt werden.
+- DEV-576: Konfiguration > Vorlagen - Die Benutzeroberfläche für die Bearbeitung von HTML/PDF/Eigene-Logik-Vorlagen wurde überarbeitet.
+- DEV-588: Regeln & Daten - Für Aktionen und Status wird der Referenzname automatisch erzeugt. Optional kann ein eigener Referenzname angegeben werden.
+- DEV-590: Aktions-Formular - Die die Options-Labels des Auswahl-Feldes kann ein konkatenierter Wert angegeben werden, sofern das Feld eine Listenkonfiguration nutzt.
+- DEV-594: Regeln & Daten - Vereinfachte Zustandserstellung - Beim Erstellen eines Status-Zustandes ist es nicht mehr notwendig, einen Wert oder Wertebereich anzugeben.
+- DEV-606: Regeln & Daten - Der Name von Aktions-Vorladedaten kann nachträglich bearbeitet werden.
+Es ist nicht mehr notwendig, dafür das Dialogfenster zu öffnen.
+nachdem eine Rolle aus der Liste gewählt wurde.
+platziert wurden, können ab sofort redundanzfrei im Aktions- und Prozesstyp JavaScript ausgelagert werden.
+
+#### Änderungen
+- DEV-397: Aktions-Formular - Bisher wurden die Feldwerte von versteckten Feldern (Nutzung der Anzeigeregeln) unter bestimmten Umständen zum Server gesendet.
+Mit diesem Update werden ausschließlich für den Benutzer sichtbare Felder zum Server gesendet. Eine Außnahme ist das nativ versteckte HTML Eingabefeld (type="hidden").
+Im Fall, dass ein einzelnes Feld in einem Multiset versteckt ist, wird an dem Multiset-Index stattdessen eine leere Zeichenkette (0 bei Checkbox) zum Server gesendet.
+- DEV-587: Regeln & Daten - Die Konfiguration der Status und Status-Zustands Icon und Farbe wurde aus Regeln & Daten entfernt und befindet sich jetzt und im Bereich Konfiguration > Status.
+
+##### Fehlerbehebungen
+- DEV-557: Behebt den Fehler, dass Prozess-Element außerhalb des sichtbaren Bereiches platziert wurden, wenn keine Position des Elements angegeben wurde, oder das Element
+- DEV-571: Behebt den Fehler, dass der Standartwert eines Aktions-Datenfeldes bei der Aktionsausführung während der Simulation (Regeln & Daten) abgeschnitten wurde.
+- DEV-598: Behebt den Fehler, dass keine Simulation von eine Prozess gestartet wurde, der basierend auf einer Prozess-Vorlage erstellt wurde.
+- DEV-609: Behebt den Fehler, dass Listenkonfigurationen vom Typ "Connector-Anfrage" nicht bearbeitet werden konnten.
+aufgrund einer Regellöschung die bisherige Position verliert hatte.
+
+### 1.11.1 - Hotfix Update
+
+04.09.2024
+
+##### Funktionen
+- DEV-570: Bei den Konditionen für Statusregeln und Prozessoren kann jetzt auf leere/befüllte JSON Arrays/Objekte geprüft werden.
+- DEV-601: Bei beliebigen Konditionen (Aktionsregeln, Statusregeln, Prozessoren,...) können jetzt bis zu 10 Gruppen für die Regelzuweisungen genutzt werden.
+
+### 1.11.0 - Reguläres Update
+
+15.08.2024
+
+##### Funktionen
+- DEV-272: Neuer Smart-Status: Verknüpfter Status. Mit dem Smart Status "Verknüpfter Status" kann der Status eines verknüpften
+Prozesses genutzt werden. Es ist damit möglich, Aktionsregeln basierend externen Status zu erstellen.
+- DEV-495: In der Prozessübersicht im Benutzer- und Organisationsprofil können Prozesse durchsucht und sortiert werden.
+- DEV-539: Prozessaktionen können in voller Bildschirmbreite angezeigt werden.
+
+##### Fehlerbehebungen
+- DEV-568: Behebt den Fehler, dass fertiggestellte Prozess- und Lösungsversionen nicht angezeigt werden könnten.
+
+### 1.10.4 - Reguläres Update
+
+06.08.2024
+
+##### Funktionen
+- DEV-333: Mit der Prozesslisten-Vorlage "Gruppen-Mitglieder" können Gruppen-Mitgliedschaften geladen werden.
+Optional können Mitgliedschaften bestimmter Gruppen-Rollen geladen werden.
+
+##### Fehlerbehebungen
+- DEV-477: Behebt den Fehler, dass die Aktions-Vorladedaten und Statuszustände mit dem Chrome-Browser nicht korrekt sortiert wurden.
+- DEV-523: Behebt den Fehler, dass das Profilbild bei eingeklapptem Panel fälschlicherweise angezeigt wurde.
+- DEV-532: Behebt den Fehler, dass das mobile Menü nicht korrekt geladen wurde.
+
+### 1.10.3 - Hotfix Update
+
+25.06.2024
+
+##### Fehlerbehebungen
+- DEV-518: Behebt einen Fehler beim Einladen neuer Mitglieder.
+
+### 1.10.2 - Hotfix Update
+
+16.06.2024
+
+##### Fehlerbehebungen
+- DEV-499: Behebt einen Anzeigefehler bei der mobilen Navigation.
+
+### 1.10.1 - Reguläres Update
+
+15.06.2024
+
+##### Funktionen
+- DEV-484: Redesign der Startseite. Neue Prozess Lizenzoption "Auf Anfrage".
+
+### 1.10.0 - Reguläres Update
+
+13.06.2024
+
+##### Funktionen
+- DEV-150: Beim Export einer Prozess-Version in eine Allisa Plattform wird die Plattform Version geprüft.
+Prozess-Versionen können nicht in veraltete Allisa Plattformen exportiert werden. Die Allisa Plattform Mindestversion
+wurde auf 1.20.3 gesetzt.
+- DEV-480: Ein Prozess kann ohne Lizenz-Option veröffentlicht werden.

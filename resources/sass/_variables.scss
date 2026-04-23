@@ -1,0 +1,41 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Segoe UI', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$primary: #013370;
+$secondary: #0373FC;
+$invalid: #c86363;
+$success: #058144;
+$danger: #d02c28;
+
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+$theme-colors: (
+    primary: $primary,
+    secondary: $secondary,
+    warning: $orange
+);
+
+$actionrule-orange: #ed8401;
+$statusrule-blue: #6f98cf;
+
+$panel-header-height: 85px;
+$panel-loading-bar-height: 3px;
+$panel-nav-height: 40px;
+$panel-footer-height: 32px;
+$navbar-height: 55px;
+$footer-height: 24px;

@@ -1,0 +1,11 @@
+*
+!plugins/
+!public/
+!purify/
+!process_types/
+!solutions/
+!plugins/
+!.gitignore
+!demo-bild.jpg
+!demo-dokument.pdf
+!demo-excel.xlsx
